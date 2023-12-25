@@ -7,7 +7,9 @@ import com.cdac.component.Calculator;
 import com.cdac.component.Car;
 import com.cdac.component.CurrencyConverter;
 import com.cdac.component.HelloWorld;
+import com.cdac.component.TextEditor;
 import com.cdac.component.Welcome;
+import com.cdac.component.banking.copy.Atm;
 
 public class App {
 
@@ -33,5 +35,11 @@ public class App {
 		
 		Car car = (Car) ctx.getBean("my-car");
 		car.start();
+		
+		TextEditor te = (TextEditor) ctx.getBean("textEditor");
+		te.load("abc.txt");
+		
+		Atm atm = (Atm) ctx.getBean("sbiatm-v2");
+		atm.withdraw(22222, 1000);
 	}
 }
