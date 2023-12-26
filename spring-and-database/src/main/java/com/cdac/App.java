@@ -9,7 +9,7 @@ public class App {
 
 	public static void main(String[] args) {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("my-spring-config.xml");
-		ProductInventory productInventory = (ProductInventory) ctx.getBean("productInventory2");
+		ProductInventory productInventory = (ProductInventory) ctx.getBean("productInventory3");
 		
 		//entity classes are not instantiated using Spring
 		/*Product product = new Product();
@@ -19,7 +19,11 @@ public class App {
 	
 		productInventory.add(product);*/
 		
+		//long ms1 = System.currentTimeMillis();
 		List<Product> list = productInventory.getAvailableProducts();
+		//long ms2 = System.currentTimeMillis();
+		//System.out.println("overall approx time taken : " + (ms2 - ms1) + " ms");
+		
 		for(Product product : list) {
 			System.out.println(product);
 		}

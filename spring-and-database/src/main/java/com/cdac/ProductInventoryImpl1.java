@@ -38,7 +38,10 @@ public class ProductInventoryImpl1 implements ProductInventory {
 		Connection conn = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
+			long ms1 = System.currentTimeMillis();
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cdac","root","passw0rd");
+			long ms2 = System.currentTimeMillis();
+			System.out.println("time taken to connect approx : " + (ms2 - ms1) + " ms");
 			String sql = "select * from tbl_product";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
