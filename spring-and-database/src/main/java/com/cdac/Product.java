@@ -1,8 +1,18 @@
 package com.cdac;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "tbl_product")
 public class Product {
 
+	@Id
+	@GeneratedValue
 	private int id;
+	
 	private String name;
 	private double price;
 	private int quantity;

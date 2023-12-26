@@ -2,18 +2,51 @@
 <beans 
 	xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+    	http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+	<!-- Instantiate annotated beans (@Component) -->	
 	<context:component-scan base-package="com.cdac" />
 
-	<bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<!-- DataSource/Connection Pool configuration -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 	    <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
 	    <property name="url" value="jdbc:mysql://localhost:3306/cdac" />
 	    <property name="username" value="root" />
 	    <property name="password" value="passw0rd" />
 	</bean>
+	
+	<!-- This bean entry will help us get the EntityManagerFactory & EntityManager
+		object created for us. Also we don't need to separately create persistence.xml
+		since we can do the required ORM settings here itself within this bean entry -->
+	<bean id="myEmf" 
+	  class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	    <property name="dataSource" ref="dataSource" /> <!-- DataSource configuration -->
+	    <property name="packagesToScan" value="com.cdac" /> <!-- Location of @Entity classes -->
+	    <property name="jpaVendorAdapter">
+	        <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" /> <!-- Which ORM are we using? -->
+	    </property>
+	    <property name="jpaProperties"> <!--  ORM settings -->
+	        <props>
+	            <prop key="hibernate.hbm2ddl.auto">update</prop>
+	            <prop key="hibernate.show_sql">true</prop>
+	        </props>
+	    </property>
+	</bean>
+	
+	<!-- This bean entry will provide us support for transactions in our code -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+	    <property name="entityManagerFactory" ref="myEmf" />
+	</bean>
+	<tx:annotation-driven />
+	
+	<!-- Enable support for Spring Data JPA which will help us in generating db code dynamically -->
+	<jpa:repositories base-package="com.cdac" entity-manager-factory-ref="myEmf" />
 	
 </beans>

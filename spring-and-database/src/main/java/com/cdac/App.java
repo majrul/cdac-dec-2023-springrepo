@@ -9,7 +9,7 @@ public class App {
 
 	public static void main(String[] args) {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("my-spring-config.xml");
-		ProductInventory productInventory = (ProductInventory) ctx.getBean("productInventory3");
+		ProductInventory productInventory = (ProductInventory) ctx.getBean("productInventory4");
 		
 		//entity classes are not instantiated using Spring
 		/*Product product = new Product();
