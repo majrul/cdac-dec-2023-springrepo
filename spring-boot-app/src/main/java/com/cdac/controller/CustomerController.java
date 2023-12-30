@@ -28,6 +28,22 @@ public class CustomerController {
 	  		"email" : "majrul@gmail.com",
 	  		"password" : "123"
 		}
+		
+		OR
+		
+		{
+		  "name" : "Aditya",
+		  "email" : "aditya@gmail.com",
+		  "password" : "333",
+		  "dateOfBirth" : "2000-11-11",
+		  "address" : {
+		      "line1" : "Star Apartments",
+		      "line2" : "Near Andromeda Galaxy",
+		      "pincode" : 40002,
+		      "city" : "Mumbai",
+		      "state" : "Maharashtra"
+		  }
+		}
 	 */
 	@PostMapping("/register")
 	public RegistrationStatus register(@RequestBody Customer customer) {

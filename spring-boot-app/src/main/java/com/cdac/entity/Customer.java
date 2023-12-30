@@ -2,6 +2,7 @@ package com.cdac.entity;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,7 +23,7 @@ public class Customer {
 	private LocalDate dateOfBirth;
 	private String profilePic;
 	
-	@OneToOne(mappedBy = "customer")
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
 	private Address address;
 
 	public int getId() {
