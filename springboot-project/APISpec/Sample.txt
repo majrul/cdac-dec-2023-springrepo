@@ -1,0 +1,121 @@
+API Specification
+------------------
+
+Description: API for registering new customers
+URL: /register
+METHOD: POST
+
+REQUEST BODY (JSON):
+{
+  "name" : "Majrul",
+  "email" : "majrul@gmail.com",
+  "password" : "123"
+}
+
+RESPONSE BODY (JSON):
+{
+  "status" : true,
+  "statusMessage" : "Customer registered successfully!",
+  "customerId" : 123
+}
+
+RESPONSE BODY (JSON) In case of error:
+{
+  "status" : false,
+  "statusMessage" : "Customer already registered!",
+  "customerId" : 123
+}
+
+
+
+API Specification
+------------------
+
+Description: API for customer login
+URL: /login
+METHOD: POST
+
+REQUEST BODY (JSON):
+{
+  "email" : "majrul@gmail.com",
+  "password" : "123"
+}
+
+RESPONSE BODY (JSON):
+{
+  "status" : true,
+  "statusMessage" : "Login successful!",
+  "customerId" : 111,
+  "name" : "Majrul Ansari"
+}
+
+RESPONSE BODY (JSON) In case of error:
+{
+  "status" : false,
+  "statusMessage" : "Invalid Email/Password",
+}
+
+
+API Specification
+------------------
+
+Description: API for updating customer data
+URL: /update
+METHOD: POST
+
+REQUEST BODY (JSON):
+{
+  "id" : 1,
+  "email" : "majrul@gmail.com",
+  "password" : "123",
+  "dateOfBirth" : "2000-10-10",
+}
+
+RESPONSE BODY (JSON):
+{
+  "status" : true,
+  "statusMessage" : "Customer data updated!",
+}
+
+RESPONSE BODY (JSON) In case of error:
+{
+  "status" : false,
+  "statusMessage" : "No such customer!",
+}
+
+
+
+API Specification
+------------------
+
+Description: API for placing order
+URL: /order
+METHOD: POST
+
+REQUEST BODY (JSON):
+{
+  "customer" : {
+     "id" : 3
+   },
+  "orderItems" : [
+    {
+      "product" : {
+         "id" : 1
+       },
+      "quantity" : 2
+    },
+    {
+      "product" : {
+         "id" : 2
+       },
+      "quantity" : 1
+    }
+  ]
+}
+
+RESPONSE BODY (JSON):
+{
+  "status" : true,
+  "statusMessage" : "Order placed!",
+}
+
